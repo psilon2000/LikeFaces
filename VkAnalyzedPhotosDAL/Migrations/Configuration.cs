@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace VkAnalyzedPhotosDAL.Migrations
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<VkPhotosContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<PhotosContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(VkPhotosContext context)
+        protected override void Seed(PhotosContext context)
         {
         }
     }

@@ -8,10 +8,10 @@ using Microsoft.ProjectOxford.Face.Contract;
 
 namespace VkAnalyzedPhotosDAL
 {
-    public class VkPhotosContext : DbContext
+    public class PhotosContext : DbContext
     {
-            public VkPhotosContext()
-                : base("name=VkPhotosDB")
+            public PhotosContext(string connection)
+                : base(connection)
             {
                 //Database.SetInitializer(new Migrations.Configuration.RebatesDbInitializer());
             }

@@ -76,41 +76,18 @@ namespace FillVkDatabase
                         }
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     // No need to handle this for now.
                 }
             }
             
             // If we need to download them.
-
-            //int i = 0;
-            //foreach (var url in urls)
-            //{
-            //    i++;
-            //    WebClient webClient = new WebClient();
-            //    var path = string.Format(@"E:\MyFriendsOfFriends\{0}.jpg", i);
-
-            //    if (!File.Exists(path))
-            //    {
-            //        try
-            //        {
-            //            webClient.DownloadFile(url, path);
-            //        }
-            //        catch (Exception e)
-            //        {
-            //            // No need to handle it for now also.
-            //        }
-            //    }
-            //}
-
-
-            //var testImageUrl = @"https://pp.vk.me/c604629/v604629126/70fc/wmMPgTyNMko.jpg";
-            
             var faceClient = new FaceServiceClient(APIKeyFace);
             var emotionClient = new EmotionServiceClient(APIKeyEmotion);
 
             List<FaceAttributeType> faceAttributesToGet = Enum.GetValues(typeof(FaceAttributeType)).Cast<FaceAttributeType>().ToList();
+            var photoDatabase = new PhotoesRepository("name=VkPhotosDB");
 
             foreach (var url in urls.Skip(99).Take(1901))
             {
@@ -140,11 +117,11 @@ namespace FillVkDatabase
                         Emotion e = detectEmotionTask.Result[0];
 
                         var dto = new AnalyzedPhoto(url, f, e);
-
-                        VkPhotosAPI.Create(dto);
+                        
+                        photoDatabase.Add(dto);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // Still can fail if VK url server is down.
                 }

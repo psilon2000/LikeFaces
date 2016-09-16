@@ -10,6 +10,8 @@ namespace VkAnalyzedPhotosDAL
 {
     public class AnalyzedPhoto
     {
+        public AnalyzedPhoto() { }
+
         public AnalyzedPhoto(string url, Face face, Emotion emotion)
         {
             Url = url;
