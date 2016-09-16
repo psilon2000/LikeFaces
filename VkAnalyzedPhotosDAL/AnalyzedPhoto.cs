@@ -136,6 +136,7 @@ namespace VkAnalyzedPhotosDAL
         public long Id { get; set; }
 
         public string Url { get; set; }
+        public bool? Like { get; set; }
 
         public Guid FaceId { get; set; }
 

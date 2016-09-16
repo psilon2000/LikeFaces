@@ -1,15 +1,10 @@
-﻿using System;
-using FileHelpers;
+﻿using FileHelpers;
 
-namespace BaseToCsvConverter
+namespace ModelToLearn
 {
     [DelimitedRecord(",")]
     public class PhotoDataForLearning
     {
-        public PhotoDataForLearning() { }
-
-        public long Id { get; set; }
-
         public int FaceWidth { get; set; }
 
         public int FaceHeight { get; set; }

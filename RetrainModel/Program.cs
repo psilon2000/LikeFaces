@@ -13,7 +13,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using BaseToCsvConverter;
+using ModelToLearn;
 using Newtonsoft.Json;
 using VkAnalyzedPhotosDAL;
 

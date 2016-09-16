@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Mapping;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.ProjectOxford.Face.Contract;
 
 namespace VkAnalyzedPhotosDAL
 {
@@ -27,6 +25,17 @@ namespace VkAnalyzedPhotosDAL
         private PhotosContext NewContext()
         {
             return new PhotosContext(_connection);
+        }
+
+        public void Like(Guid faceId, bool like)
+        {
+            using (var context = NewContext())
+            {
+                var entity = context.AnalyzedPhotos
+                    .First(f => f.FaceId == faceId);
+                entity.Like = like;
+                context.SaveChanges();
+            }
         }
 
         public void Add(AnalyzedPhoto model)

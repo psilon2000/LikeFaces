@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using FileHelpers;
+using ModelToLearn;
 using VkAnalyzedPhotosDAL;
 
 namespace BaseToCsvConverter
