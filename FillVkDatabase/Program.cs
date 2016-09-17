@@ -91,41 +91,12 @@ namespace FillVkDatabase
 
             foreach (var url in urls.Skip(99).Take(1901))
             {
-                var detectFaceTask = faceClient.DetectAsync(url, true, true, faceAttributesToGet);
-                Thread.Sleep(3000);
-                try
-                {
-                    detectFaceTask.Wait();
-                    if (detectFaceTask.Result.Any())
-                    {
-                        Face f = detectFaceTask.Result[0];
-
-                        var detectEmotionTask = emotionClient.RecognizeAsync(url,
-                            new Rectangle[]
-                            {
-                                new Rectangle()
-                                {
-                                    Height = f.FaceRectangle.Height,
-                                    Left = f.FaceRectangle.Left,
-                                    Top = f.FaceRectangle.Top,
-                                    Width = f.FaceRectangle.Width
-                                }
-                            });
-
-                        detectEmotionTask.Wait();
-
-                        Emotion e = detectEmotionTask.Result[0];
-
-                        var dto = new AnalyzedPhoto(url, f, e);
-                        
-                        photoDatabase.Add(dto);
-                    }
-                }
-                catch (Exception)
-                {
-                    // Still can fail if VK url server is down.
-                }
+                var dto  = AnalyzedPhoto.Detect(faceClient, url, faceAttributesToGet, emotionClient);
+                photoDatabase.Add(dto);
             }
+            
         }
+
+
     }
 }

@@ -10,11 +10,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using ModelToLearn;
-using Newtonsoft.Json;
 using VkAnalyzedPhotosDAL;
 
 namespace RetrainModel
@@ -27,7 +25,7 @@ namespace RetrainModel
 
     internal class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             InvokeRequestResponseService().Wait();
         }
@@ -36,7 +34,7 @@ namespace RetrainModel
 
         private static readonly string[] ColumnNames = new[]
         {
-            "Id", "FaceWidth", "FaceHeight", "FacePositionLeft", "FacePositionTop",
+            "FaceWidth", "FaceHeight", "FacePositionLeft", "FacePositionTop",
             "PupilLeftX", "PupilLeftY", "PupilRightX", "PupilRightY", "NoseTipX", "NoseTipY",
             "MouthLeftX", "MouthLeftY", "MouthRightX", "MouthRightY", "EyebrowLeftOuterX",
             "EyebrowLeftOuterY", "EyebrowLeftInnerX", "EyebrowLeftInnerY", "EyeLeftOuterX",

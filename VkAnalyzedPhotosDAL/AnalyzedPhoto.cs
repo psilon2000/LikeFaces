@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
+using Microsoft.ProjectOxford.Common;
+using Microsoft.ProjectOxford.Emotion;
 using Microsoft.ProjectOxford.Emotion.Contract;
+using Microsoft.ProjectOxford.Face;
 using Microsoft.ProjectOxford.Face.Contract;
 
 namespace VkAnalyzedPhotosDAL
@@ -131,6 +133,38 @@ namespace VkAnalyzedPhotosDAL
             ScoreNeutral = emotion.Scores.Neutral;
             ScoreSandess = emotion.Scores.Sadness;
             ScoreSurprise = emotion.Scores.Surprise;
+        }
+
+        public static AnalyzedPhoto Detect(FaceServiceClient faceClient, string url,
+            List<FaceAttributeType> faceAttributesToGet, EmotionServiceClient emotionClient)
+        {
+            var detectFaceTask = faceClient.DetectAsync(url, true, true, faceAttributesToGet);
+            Thread.Sleep(3000);
+
+            detectFaceTask.Wait();
+            if (detectFaceTask.Result.Any())
+            {
+                Face f = detectFaceTask.Result[0];
+
+                var detectEmotionTask = emotionClient.RecognizeAsync(url,
+                    new[]
+                    {
+                            new Rectangle()
+                            {
+                                Height = f.FaceRectangle.Height,
+                                Left = f.FaceRectangle.Left,
+                                Top = f.FaceRectangle.Top,
+                                Width = f.FaceRectangle.Width
+                            }
+                    });
+
+                detectEmotionTask.Wait();
+
+                Emotion e = detectEmotionTask.Result[0];
+
+                return new AnalyzedPhoto(url, f, e);
+            }
+            throw new ApplicationException();
         }
 
         public long Id { get; set; }
