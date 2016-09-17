@@ -42,6 +42,7 @@ namespace CheckPhoto
                 textBox1.Text, faceAttributesToGet, emotionClient);
             var mapper = new Mapper(new MapperConfiguration(cfg => { cfg.CreateMap<AnalyzedPhoto, PhotoDataForLearning>(); }));
             var photoToAnalyse = mapper.DefaultContext.Mapper.Map<PhotoDataForLearning>(dto);
+            photoToAnalyse.Normalize();
             var task = CheckPhoto.InvokeRequestResponseService(photoToAnalyse).ContinueWith(
                 (result) => this.Invoke(new Action(
                     () =>MessageBox.Show(result.Result))));

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -45,12 +46,19 @@ namespace CheckPhoto
 
         public static async Task<string> InvokeRequestResponseService(PhotoDataForLearning analyzedPhoto)
         {
+            NumberFormatInfo nfi = new NumberFormatInfo {NumberDecimalSeparator = "."};
+
             var sampleData = new List<PhotoDataForLearning> { analyzedPhoto};
             var type = typeof(PhotoDataForLearning);
             var properties = type.GetProperties();
+            
             var stringData = sampleData.Select(data => ColumnNames
-               .Select(columnName => properties.First(p => p.Name == columnName)
-               .GetValue(data).ToString()).ToArray()).ToArray();
+               .Select(columnName =>
+               {
+                   var propInfo = properties.First(p => p.Name == columnName);
+                   var prop = propInfo.GetValue(data);
+                   return propInfo.PropertyType == typeof(double) ? ((double)prop).ToString(nfi) : prop.ToString();
+               }).ToArray()).ToArray();
 
             using (var client = new HttpClient())
             {

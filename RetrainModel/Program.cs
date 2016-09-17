@@ -30,7 +30,7 @@ namespace RetrainModel
             InvokeRequestResponseService().Wait();
         }
         const string APIKey =
-                    "AdzRtrX2k7brGb+ekfYecpRHn8Ufe2aldYPyFxIYGsz3+e0Dx2TyzbVylO/VGVgZ2cXwIixo5RgXR356oBRsjA==";
+                    "rk4HEQK2ou3KNPFpf5vEJfblt81laLj+bDEp8VKy5OdTj+DrUGeEnoLANyr7+JrJhGR7UQ5vg4LhyIJMss/ENw==";
 
         private static readonly string[] ColumnNames = new[]
         {
@@ -117,7 +117,7 @@ namespace RetrainModel
 
                 client.BaseAddress =
                     new Uri(
-                        "https://ussouthcentral.services.azureml.net/workspaces/b73b66623fff4cdbae8f403ebdd34ed7/services/a5ca26e5f3804ce4a16ddca3bb46d915/execute?api-version=2.0&details=true");
+                        "https://ussouthcentral.services.azureml.net/workspaces/b73b66623fff4cdbae8f403ebdd34ed7/services/f345cd9ad0d7404ea9b902becfd2bdf1/execute?api-version=2.0&details=true");
 
                 // WARNING: The 'await' statement below can result in a deadlock if you are calling this code from the UI thread of an ASP.Net application.
                 // One way to address this would be to call ConfigureAwait(false) so that the execution does not attempt to resume on the original context.
