@@ -28,6 +28,7 @@ namespace CheckPhoto
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
             Task.Run(() =>Check());
         }
 
@@ -45,7 +46,22 @@ namespace CheckPhoto
             photoToAnalyse.Normalize();
             var task = CheckPhoto.InvokeRequestResponseService(photoToAnalyse).ContinueWith(
                 (result) => this.Invoke(new Action(
-                    () =>MessageBox.Show(result.Result))));
+                    () => {
+                        dynamic res = Newtonsoft.Json.JsonConvert.DeserializeObject(result.Result);
+                        var values = Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(
+                                res.Results.output1.value.Values[0].ToString());
+                        var mark = values[values.Count - 2];
+                        MessageBox.Show((string)mark);
+                    })));
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                webBrowser1.Url = new Uri(textBox1.Text);
+            }
+            catch { }
         }
     }
 }

@@ -129,7 +129,7 @@ namespace ModelToLearn
         public double ScoreDisgust { get; set; }
 
         public double ScoreSurprise { get; set; }
-        public bool Like { get; set; }
+        public bool? Like { get; set; }
 
         public void Normalize()
         {

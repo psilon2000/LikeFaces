@@ -21,11 +21,12 @@ namespace BaseToCsvConverter
                 Console.WriteLine("Provide path to output file: {result file name}");
                 return;
             }
-            var photoes = LoadPhotoesFromDatabase();
+            var photoes = LoadPhotoesFromDatabase().Where(p => p.Like != null).ToList();
             foreach (var photo in photoes)
             {
                 photo.Normalize();
-                photo.Like = photo.ScoreHappiness > 0.5;
+                ////photo.Like = (photo.ScoreHappiness < 0.5 && photo.Gender == "male")
+                ////    || (photo.ScoreHappiness > 0.5 && photo.Gender == "female");
             }
 
             WriteCsv(args[0], photoes);
